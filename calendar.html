@@ -31,6 +31,11 @@ const messages=[
 'You make the season sparkle!','Have a snow-tastic day!','Sending you a little Christmas cheer!','Remember to spread kindness today!','Time for a cosy hot chocolate!','Keep an eye out for Christmas magic!','You are on Santa’s nice list!','Make somebody smile today!','Let it snow, let it snow!','Only good vibes this Christmas!','A little kindness goes a long way!','Halfway to Christmas — hooray!','Jingle all the way!','You are snow wonderful!','Take a moment to enjoy the lights!','A warm wish from the North Pole!','Keep being brilliant!','The reindeer say hello!','Christmas is getting closer!','Have a magical day!','Nearly time for Christmas cheer!','The North Pole is getting busy!','One more sleep until Christmas Eve Eve!','Merry Christmas Eve Eve!'
 ];
 const names=["Rudy the Reindeer","Pip the Penguin","Elfie","Gingerbread Gus","Santa","Polar Bear Poppy","Spruce the Tree","Bolt the Robot","Foxy","Captain Nutcracker","Candy Cane Casey","Yuki the Yeti","Queen Holly","Toy Soldier Tom","Seal Sam","Oliver the Owl","Molly Mouse","Draco the Dragon","Giftbox Gizmo","Pudding Plum","Robin Redbreast","Angel Belle","Merry Monster","Snowbert"];
+
+let renderer,scene,camera,clock,mixerGroup,raf,active=false;
+function mat(color,roughness=.72){return new THREE.MeshStandardMaterial({color,roughness})}
+function sphere(parent,r,material,x,y,z,sx=1,sy=1,sz=1){const m=new THREE.Mesh(new THREE.SphereGeometry(r,32,24),material);m.position.set(x,y,z);m.scale.set(sx,sy,sz);parent.add(m);return m}
+
 function buildCharacter(day){
  const type=(day-1)%24;
  scene=new THREE.Scene();scene.background=new THREE.Color('#e9b56f');scene.fog=new THREE.Fog('#e9b56f',9,20);
