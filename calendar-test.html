@@ -30,43 +30,74 @@ const today=new Date(),unlocked=24; // Test version: every day is unlocked, rega
 const messages=[
 'You make the season sparkle!','Have a snow-tastic day!','Sending you a little Christmas cheer!','Remember to spread kindness today!','Time for a cosy hot chocolate!','Keep an eye out for Christmas magic!','You are on Santa’s nice list!','Make somebody smile today!','Let it snow, let it snow!','Only good vibes this Christmas!','A little kindness goes a long way!','Halfway to Christmas — hooray!','Jingle all the way!','You are snow wonderful!','Take a moment to enjoy the lights!','A warm wish from the North Pole!','Keep being brilliant!','The reindeer say hello!','Christmas is getting closer!','Have a magical day!','Nearly time for Christmas cheer!','The North Pole is getting busy!','One more sleep until Christmas Eve Eve!','Merry Christmas Eve Eve!'
 ];
-const names=['Snowbert','Frosty','Pip','Mittens','Jingles','Flurry','Bubbles','Cocoa','Waddles','Twinkle','Marshmallow','Sprinkles','Chilly','Buttons','Snowdrop','Tinsel','Icicle','Nibbles','Jolly','Crumble','Pudding','Sparkle','Noel','Merry'];
-const emojis=['❄','★','🎁','✦','❄','★'];
-let renderer,scene,camera,clock,mixerGroup,raf,active=false;
-function makeDoor(day){const b=document.createElement('button');b.className='door';b.type='button';const canOpen=day<=unlocked;b.disabled=!canOpen;b.setAttribute('aria-label',canOpen?'Open day '+day:'Day '+day+' locked');b.innerHTML='<span class="number">'+String(day).padStart(2,'0')+'</span><span class="door-icon">'+(canOpen?'✦':'❄')+'</span><small>'+(canOpen?'OPEN YOUR GIFT':'LOCKED')+'</small>';if(canOpen)b.addEventListener('click',()=>openDay(day,b));calendar.append(b)}
-for(let d=1;d<=24;d++)makeDoor(d);
-status.textContent='TEST MODE · all 24 doors are unlocked';
-function mat(color,roughness=.72){return new THREE.MeshStandardMaterial({color,roughness})}
-function sphere(parent,r,material,x,y,z,sx=1,sy=1,sz=1){const m=new THREE.Mesh(new THREE.SphereGeometry(r,32,24),material);m.position.set(x,y,z);m.scale.set(sx,sy,sz);parent.add(m);return m}
-function buildSnowman(day){
+const names=["Rudy the Reindeer","Pip the Penguin","Elfie","Gingerbread Gus","Santa","Polar Bear Poppy","Spruce the Tree","Bolt the Robot","Foxy","Captain Nutcracker","Candy Cane Casey","Yuki the Yeti","Queen Holly","Toy Soldier Tom","Seal Sam","Oliver the Owl","Molly Mouse","Draco the Dragon","Giftbox Gizmo","Pudding Plum","Robin Redbreast","Angel Belle","Merry Monster","Snowbert"];
+function buildCharacter(day){
+ const type=(day-1)%24;
  scene=new THREE.Scene();scene.background=new THREE.Color('#e9b56f');scene.fog=new THREE.Fog('#e9b56f',9,20);
  camera=new THREE.PerspectiveCamera(35,wrap.clientWidth/350,.1,100);camera.position.set(0,2.5,8.5);camera.lookAt(0,1.25,0);
- renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(wrap.clientWidth,350);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;wrap.querySelector('canvas')?.remove();wrap.appendChild(renderer.domElement);
- scene.add(new THREE.HemisphereLight(0xffffff,0x8b4a35,2));const light=new THREE.DirectionalLight(0xffffff,2.5);light.position.set(-3,7,5);light.castShadow=true;scene.add(light);
- const floor=new THREE.Mesh(new THREE.CircleGeometry(5,64),mat('#fff0d5'));floor.rotation.x=-Math.PI/2;floor.position.y=-.08;floor.receiveShadow=true;scene.add(floor);
+ renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(wrap.clientWidth,350);renderer.outputColorSpace=THREE.SRGBColorSpace;wrap.querySelector('canvas')?.remove();wrap.appendChild(renderer.domElement);
+ scene.add(new THREE.HemisphereLight(0xffffff,0x8b4a35,2));const light=new THREE.DirectionalLight(0xffffff,2.5);light.position.set(-3,7,5);scene.add(light);
+ const floor=new THREE.Mesh(new THREE.CircleGeometry(5,64),mat('#fff0d5'));floor.rotation.x=-Math.PI/2;floor.position.y=-.08;scene.add(floor);
  mixerGroup=new THREE.Group();scene.add(mixerGroup);
- const white=mat('#fffdf2'),black=mat('#25252c'),orange=mat('#f47b27'),scarf=mat(['#c52d35','#176044','#315f9e','#a33b77'][day%4]),hat=mat('#29252b');
- sphere(mixerGroup,.66,white,0,.7,0);sphere(mixerGroup,.49,white,0,1.55,0);
- // face: eyes, carrot nose and a curved smile made from tiny coal beads
- for(const x of [-.17,.17])sphere(mixerGroup,.055,black,x,1.68,.445);
- const nose=new THREE.Mesh(new THREE.ConeGeometry(.09,.42,24),orange);nose.rotation.x=Math.PI/2;nose.rotation.z=-Math.PI/2;nose.position.set(.02,1.52,.53);mixerGroup.add(nose);
- for(let i=0;i<5;i++){const x=(i-2)*.075,y=1.36+Math.abs(i-2)*.025;sphere(mixerGroup,.025,black,x,y,.46)}
- // hat
- const brim=new THREE.Mesh(new THREE.CylinderGeometry(.38,.38,.09,32),hat);brim.position.y=2.02;mixerGroup.add(brim);const crown=new THREE.Mesh(new THREE.CylinderGeometry(.25,.29,.43,32),hat);crown.position.y=2.25;mixerGroup.add(crown);sphere(mixerGroup,.09,mat('#fff'),0,2.5,0);
- // scarf and hanging tail
- const collar=new THREE.Mesh(new THREE.TorusGeometry(.43,.095,12,48),scarf);collar.position.y=1.17;collar.rotation.x=Math.PI/2;mixerGroup.add(collar);
- const tail=new THREE.Mesh(new THREE.BoxGeometry(.16,.48,.12),scarf);tail.position.set(.3,.91,.05);tail.rotation.z=-.22;mixerGroup.add(tail);
- // buttons
- for(let y of [.85,.62,.4])sphere(mixerGroup,.055,black,0,y,.635);
- // animated stick arms with mitten hands
- const arms=[];for(const side of [-1,1]){const pivot=new THREE.Group();pivot.position.set(side*.48,1.05,0);const arm=new THREE.Mesh(new THREE.CylinderGeometry(.045,.06,.65,10),mat('#80502f'));arm.rotation.z=side*.85;arm.position.set(side*.25,.2,0);pivot.add(arm);sphere(pivot,.09,scarf,side*.49,.42,0);mixerGroup.add(pivot);arms.push(pivot)}
- // tiny snowflakes floating around
+ const palette=[
+ ['#9a5a32','#bd7a45','#f2c18c'],['#252d3c','#f5f1e8','#ff9a32'],['#27734a','#f4d4a0','#d93a37'],['#b8783e','#e8c18b','#fff5df'],
+ ['#c82f35','#f6e9d8','#ffffff'],['#e9e1cc','#fff8e8','#b7d6e8'],['#246c43','#318b50','#f4d36d'],['#697c91','#a9c5d7','#f0bd4f'],
+ ['#d96b2b','#fff0d9','#b95c27'],['#9b2630','#f2c77c','#242632'],['#d94a45','#fff4e7','#cf3036'],['#86b9d0','#d9edf4','#d0e6ef'],
+ ['#5b83c4','#d8e8ff','#f6d36a'],['#b42f35','#f2d29a','#262b38'],['#777f8a','#c2c9d0','#e6a6a0'],['#8c5836','#d5a66c','#f3dcae'],
+ ['#9b9da9','#d1cbd2','#e9a6c0'],['#398a58','#8acb77','#e36d42'],['#d7a43e','#f4d36d','#c83d3d'],['#965a36','#e8c987','#f8e9c6'],
+ ['#8e5735','#c66a3b','#e84a45'],['#eee8f8','#ffffff','#d6b6e8'],['#8052a5','#b48ad4','#f3c85d'],['#fffdf2','#fffdf2','#d84a45']
+ ];
+ const [bodyC,headC,accentC]=palette[type],bodyMat=mat(bodyC),headMat=mat(headC),accent=mat(accentC),dark=mat('#29252b'),white=mat('#fffdf5'),orange=mat('#f18a32');
+ const ball=(r,m,x,y,z,sx=1,sy=1,sz=1)=>sphere(mixerGroup,r,m,x,y,z,sx,sy,sz);
+ const cone=(r,h,m,x,y,z,rot=0)=>{const o=new THREE.Mesh(new THREE.ConeGeometry(r,h,24),m);o.position.set(x,y,z);o.rotation.z=rot;mixerGroup.add(o);return o};
+ const box=(w,h,d,m,x,y,z)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);mixerGroup.add(o);return o};
+ const cyl=(rt,rb,h,m,x,y,z)=>{const o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,20),m);o.position.set(x,y,z);mixerGroup.add(o);return o};
+ const tree=type===6,robot=type===7,gift=type===18,ginger=type===3,nutcracker=type===9,soldier=type===13;
+ // Main silhouette: the shape and materials change for every festive character.
+ if(tree){cone(.78,1.45,bodyMat,0,1.03,0);cone(.58,1.1,mat('#328d50'),0,1.55,0);cone(.38,.8,mat('#48a765'),0,2.02,0);ball(.11,accent,0,2.48,0);for(let i=0;i<9;i++)ball(.07,[mat('#e34c3f'),mat('#f5d36a'),mat('#65a9df')][i%3],Math.sin(i*2.4)*.42,.65+(i%3)*.48,Math.cos(i*2.4)*.35);}
+ else if(robot||gift||nutcracker||soldier){box(robot?.92:gift?.95:.72,robot?.95:gift?.85:1, .48,bodyMat,0,.85,0);if(gift){box(1,.12,.54,accent,0,1.27,0);box(.13,.9,.56,accent,0,.85,.02);ball(.2,accent,-.18,1.38,.03,1,.55,.5);ball(.2,accent,.18,1.38,.03,1,.55,.5)}}
+ else if(type===19){ball(.57,bodyMat,0,.9,0,1.1,.95,1);ball(.65,accent,0,1.35,0,1,.24,1);ball(.1,mat('#d94a35'),0,1.48,.42);}
+ else {ball(type===23?.64:.53,bodyMat,0,.82,0,type===14?1.25:1,type===14?.72:1,1);ball(type===23?.43:.39,headMat,0,1.65,0,type===1?.92:1,1,1);}
+ // Belly / chest panels
+ if(type===1||type===14||type===15||type===20){ball(.34,white,0,.83,.43,.95,1.15,.35)}
+ if(ginger){ball(.13,white,-.2,1.75,.34);ball(.13,white,.2,1.75,.34);box(.48,.06,.04,white,0,1.48,.39);for(let y of [.95,.7])ball(.055,white,0,y,.48)}
+ if(type===4){ball(.28,white,0,1.45,.36);cone(.42,.35,accent,0,2.05,0);ball(.09,white,0,2.25,0);cyl(.43,.43,.1,accent,0,1.27,0)}
+ if(type===0){ball(.11,orange,0,1.55,.38,1.2,.7,.8);for(const x of [-.28,.28]){cone(.14,.42,bodyMat,x,2.13,0,x<0?-.35:.35);}}
+ if(type===1){cone(.13,.25,orange,0,1.62,.45,Math.PI/2);for(const x of [-.3,.3])ball(.18,headMat,x,2.02,0)}
+ if(type===2){cone(.35,.8,accent,0,2.15,0);ball(.08,mat('#e4bd56'),0,2.55,0);ball(.12,mat('#e6b18e'),-.43,.95,.03)}
+ if(type===5){for(const x of [-.28,.28])ball(.14,headMat,x,2.02,0);ball(.13,mat('#e6a3a3'),0,1.45,.38)}
+ if(type===8){for(const x of [-.25,.25])cone(.17,.42,bodyMat,x,2.02,0,x<0?-.2:.2);ball(.27,bodyMat,.45,.45,-.05,1.2,.8,1)}
+ if(type===10){cyl(.09,.09,1.25,accent,0,1.1,0);for(let i=0;i<5;i++)ball(.08,white,0,.62+i*.22,.12)}
+ if(type===11){for(let i=0;i<7;i++)ball(.13,headMat,Math.sin(i*2)*.4,1.2+(i%3)*.3,0)}
+ if(type===12){cyl(.34,.34,.1,accent,0,2.06,0);for(let x of [-.2,0,.2])ball(.07,accent,x,2.17,.02)}
+ if(type===15){for(let x of [-.28,.28])ball(.18,headMat,x,2.02,0);cone(.13,.35,accent,0,1.65,.35,Math.PI/2)}
+ if(type===16){for(let x of [-.28,.28])ball(.22,headMat,x,1.98,0);ball(.45,headMat,.35,.55,-.1,.55,.5,.6)}
+ if(type===17){for(let x of [-.27,.27])cone(.18,.4,accent,x,2.02,0,x<0?-.35:.35);const wing=ball(.27,accent,.52,1.2,0,1.4,.5,.35)}
+ if(type===20){for(let x of [-.3,.3])ball(.13,headMat,x,2.02,0);ball(.11,accent,0,1.55,.42,1.4,1,.5)}
+ if(type===21){cyl(.3,.3,.08,accent,0,2.12,0);const halo=new THREE.Mesh(new THREE.TorusGeometry(.35,.035,8,32),accent);halo.position.y=2.28;mixerGroup.add(halo);for(let x of [-.55,.55])ball(.22,white,x,1.25,-.08,1.5,1,.35)}
+ if(type===22){for(let x of [-.28,.28])cone(.15,.36,accent,x,2.05,0,x<0?-.3:.3)}
+ if(type===23){cyl(.39,.39,.08,dark,0,2.03,0);cyl(.25,.29,.4,dark,0,2.25,0);ball(.09,white,0,2.49,0);const carrot=cone(.09,.36,orange,0,1.58,.38,Math.PI/2);for(let x of [-.48,.48]){const ear=ball(.09,bodyMat,x,1.12,0);}}
+ // Faces with eyes, nose and smile; distinct noses for different species.
+ for(const x of [-.14,.14]){ball(.052,dark,x,1.72,.365);ball(.016,white,x-.015,1.74,.41)}
+ if(type===0||type===8||type===17)ball(.095,mat('#35221b'),0,1.52,.43,1.2,.8,.8);
+ else if(type===1||type===15)cone(.11,.24,orange,0,1.57,.4,Math.PI/2);
+ else ball(.045,orange,0,1.55,.4);
+ for(let i=0;i<5;i++)ball(.022,dark,(i-2)*.065,1.42+Math.abs(i-2)*.018,.38);
+ // Arms / wings pivot and wave
+ const arms=[];for(const side of [-1,1]){const pivot=new THREE.Group();pivot.position.set(side*.43,1.05,0);const armMat=(type===0||type===5||type===8)?bodyMat:accent;const limb=new THREE.Mesh(new THREE.CapsuleGeometry(.075,.38,4,8),armMat);limb.position.set(side*.22,.02,0);limb.rotation.z=side*.85;pivot.add(limb);ball(.105,accent,side*.42,.25,0);mixerGroup.add(pivot);arms.push(pivot)}
+ // Accessory details: antlers, ears, wings, scarf and buttons.
+ if(type===0){for(const side of [-1,1]){const antler=new THREE.Group();antler.position.set(side*.24,2.0,0);const stem=new THREE.Mesh(new THREE.CylinderGeometry(.035,.05,.42,8),mat('#6d442b'));stem.position.y=.2;antler.add(stem);const branch=new THREE.Mesh(new THREE.CylinderGeometry(.025,.035,.24,8),mat('#6d442b'));branch.position.set(side*.1,.28,0);branch.rotation.z=-side*.65;antler.add(branch);mixerGroup.add(antler)}}
+ if(type===4||type===2||type===9||type===13){cone(.3,.55,type===4?mat('#c52e35'):accent,0,2.12,0);ball(.08,white,0,2.4,0)}
+ if(!tree&&!robot&&!gift)for(let y of [.88,.64])ball(.045,accent,0,y,.48);
+ if(type===18){const bow1=ball(.16,accent,-.17,1.38,.1,1,.5,.4),bow2=ball(.16,accent,.17,1.38,.1,1,.5,.4)}
+ if(type===17||type===21){for(const side of [-1,1]){const wing=ball(.25,white,side*.6,1.25,-.12,1.3,.65,.35)}}
+ // Snowflakes drift behind the character.
  for(let i=0;i<18;i++){const flake=sphere(scene,.025,mat('#ffffff'),(Math.random()-.5)*5,Math.random()*3.4+.4,(Math.random()-.5)*2);flake.userData.phase=Math.random()*6}
- mixerGroup.position.y=-2.8;mixerGroup.scale.setScalar(.01);
- clock=new THREE.Clock();active=true;animate(arms,day);
+ mixerGroup.position.y=-2.8;mixerGroup.scale.setScalar(.01);clock=new THREE.Clock();active=true;animate(arms,day);
 }
+
 function animate(arms,day){if(!active)return;raf=requestAnimationFrame(()=>animate(arms,day));const t=clock.getElapsedTime();const p=Math.min(t/1.1,1);const ease=1-Math.pow(1-p,3);mixerGroup.position.y=-.1+Math.sin(t*3)*.09;mixerGroup.scale.setScalar(ease*(1+Math.sin(t*2)*.015));mixerGroup.rotation.y=Math.sin(t*.8)*.23;arms.forEach((a,i)=>{a.rotation.z=Math.sin(t*3+i*Math.PI)*.3+(i===0?-.2:.2)});scene.children.forEach(o=>{if(o.userData.phase!==undefined)o.position.y=.4+((o.position.y-.4+Math.sin(t+o.userData.phase)*.002+3.2)%3.2)});renderer.render(scene,camera)}
-function openDay(day,button){button.classList.add('opened');button.querySelector('small').textContent='OPENED';document.querySelector('#dayTitle').textContent='December '+day+' surprise';document.querySelector('#characterTitle').textContent='Meet '+names[day-1]+'!';document.querySelector('#message').textContent=messages[day-1];modal.classList.add('show');document.body.style.overflow='hidden';buildSnowman(day)}
+function openDay(day,button){button.classList.add('opened');button.querySelector('small').textContent='OPENED';document.querySelector('#dayTitle').textContent='December '+day+' surprise';document.querySelector('#characterTitle').textContent='Meet '+names[day-1]+'!';document.querySelector('#message').textContent=messages[day-1];modal.classList.add('show');document.body.style.overflow='hidden';buildCharacter(day)}
 function closeModal(){modal.classList.remove('show');document.body.style.overflow='';active=false;cancelAnimationFrame(raf);if(renderer){renderer.dispose();renderer.domElement.remove();renderer=null}}
 document.querySelector('#close').addEventListener('click',closeModal);modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('show'))closeModal()});
 addEventListener('resize',()=>{if(renderer&&camera){camera.aspect=wrap.clientWidth/350;camera.updateProjectionMatrix();renderer.setSize(wrap.clientWidth,350)}});
