@@ -36,6 +36,23 @@ let renderer,scene,camera,clock,mixerGroup,raf,active=false;
 function mat(color,roughness=.72){return new THREE.MeshStandardMaterial({color,roughness})}
 function sphere(parent,r,material,x,y,z,sx=1,sy=1,sz=1){const m=new THREE.Mesh(new THREE.SphereGeometry(r,32,24),material);m.position.set(x,y,z);m.scale.set(sx,sy,sz);parent.add(m);return m}
 
+const STORAGE_KEY='rohansweb-christmas-calendar-opened-v1';
+function getOpenedDays(){try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return new Set(Array.isArray(saved)?saved.filter(n=>Number.isInteger(n)&&n>=1&&n<=24):[])}catch{return new Set()}}
+const openedDays=getOpenedDays();
+function saveOpenedDays(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify([...openedDays].sort((a,b)=>a-b)))}catch(error){console.warn('Could not save calendar progress:',error)}}
+function makeDoor(day){
+ const b=document.createElement('button');b.className='door';b.type='button';
+ const canOpen=day<=unlocked;b.disabled=!canOpen;
+ b.setAttribute('aria-label',canOpen?'Open day '+day:'Day '+day+' locked');
+ b.innerHTML='<span class="number">'+String(day).padStart(2,'0')+'</span><span class="door-icon">'+(canOpen?'✦':'❄')+'</span><small>'+(canOpen?'OPEN YOUR GIFT':'LOCKED')+'</small>';
+ if(openedDays.has(day)){b.classList.add('opened');b.querySelector('small').textContent='OPENED';b.setAttribute('aria-label','Reopen day '+day)}
+ if(canOpen)b.addEventListener('click',()=>openDay(day,b));
+ calendar.append(b);
+}
+for(let d=1;d<=24;d++)makeDoor(d);
+if(unlocked===0)status.textContent='Locked until 1 December';
+else if(!status.textContent.trim())status.textContent='Day '+unlocked+' is available';
+
 function buildCharacter(day){
  const type=(day-1)%24;
  scene=new THREE.Scene();scene.background=new THREE.Color('#e9b56f');scene.fog=new THREE.Fog('#e9b56f',9,20);
@@ -102,7 +119,7 @@ function buildCharacter(day){
 }
 
 function animate(arms,day){if(!active)return;raf=requestAnimationFrame(()=>animate(arms,day));const t=clock.getElapsedTime();const p=Math.min(t/1.1,1);const ease=1-Math.pow(1-p,3);mixerGroup.position.y=-.1+Math.sin(t*3)*.09;mixerGroup.scale.setScalar(ease*(1+Math.sin(t*2)*.015));mixerGroup.rotation.y=Math.sin(t*.8)*.23;arms.forEach((a,i)=>{a.rotation.z=Math.sin(t*3+i*Math.PI)*.3+(i===0?-.2:.2)});scene.children.forEach(o=>{if(o.userData.phase!==undefined)o.position.y=.4+((o.position.y-.4+Math.sin(t+o.userData.phase)*.002+3.2)%3.2)});renderer.render(scene,camera)}
-function openDay(day,button){button.classList.add('opened');button.querySelector('small').textContent='OPENED';document.querySelector('#dayTitle').textContent='December '+day+' surprise';document.querySelector('#characterTitle').textContent='Meet '+names[day-1]+'!';document.querySelector('#message').textContent=messages[day-1];modal.classList.add('show');document.body.style.overflow='hidden';buildCharacter(day)}
+function openDay(day,button){openedDays.add(day);saveOpenedDays();button.classList.add('opened');button.querySelector('small').textContent='OPENED';document.querySelector('#dayTitle').textContent='December '+day+' surprise';document.querySelector('#characterTitle').textContent='Meet '+names[day-1]+'!';document.querySelector('#message').textContent=messages[day-1];modal.classList.add('show');document.body.style.overflow='hidden';buildCharacter(day)}
 function closeModal(){modal.classList.remove('show');document.body.style.overflow='';active=false;cancelAnimationFrame(raf);if(renderer){renderer.dispose();renderer.domElement.remove();renderer=null}}
 document.querySelector('#close').addEventListener('click',closeModal);modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('show'))closeModal()});
 addEventListener('resize',()=>{if(renderer&&camera){camera.aspect=wrap.clientWidth/350;camera.updateProjectionMatrix();renderer.setSize(wrap.clientWidth,350)}});
