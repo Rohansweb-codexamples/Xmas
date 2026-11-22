@@ -1,63 +1,47 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#b94316"><title>Rohan's Christmas Calendar</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#a93226"><title>Christmas Card Collector</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@700;800;900&display=swap');
-*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}
-body{height:100svh;display:flex;flex-direction:column;color:#fff8e9;font-family:Nunito,system-ui,sans-serif;background:radial-gradient(ellipse at 12% 0%,#ffb04b 0,transparent 36%),radial-gradient(ellipse at 90% 20%,#e65b2e 0,transparent 34%),linear-gradient(145deg,#8d281f,#b94b20 52%,#57251f)}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:radial-gradient(#fff 1px,transparent 1.5px);background-size:42px 42px}
-header{position:relative;z-index:1;text-align:center;flex:none;padding:clamp(8px,2vh,20px) 12px 10px}
-.eyebrow{font-size:clamp(.55rem,1.2vw,.75rem);letter-spacing:.24em;font-weight:900;color:#ffe4a6}
-h1{font:700 clamp(1.8rem,5vh,3.5rem)/.98 Fredoka,cursive;margin:5px 0;text-shadow:0 4px 0 #74251f,0 8px 18px #42150d66}
-.subtitle{font-size:clamp(.68rem,1.5vh,.9rem);margin:5px auto 7px;color:#ffedcf}
-.countdown{display:inline-block;padding:6px 13px;border:1px solid #ffffff50;border-radius:30px;background:#54231f66;font-size:clamp(.62rem,1.3vh,.8rem);font-weight:900}
-main{position:relative;z-index:1;flex:1;min-height:0;width:min(1100px,96vw);margin:0 auto;padding:0 0 max(8px,env(safe-area-inset-bottom))}
-.calendar{height:100%;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:clamp(5px,1.1vw,12px);padding:clamp(7px,1.3vw,14px);border:1px solid #ffffff45;border-radius:clamp(14px,2vw,24px);background:linear-gradient(135deg,#ffffff22,#3e171d55);box-shadow:0 16px 45px #32100d66,inset 0 1px #ffffff55;backdrop-filter:blur(10px)}
-.door{position:relative;min-width:0;min-height:0;padding:0;border:0;border-radius:clamp(8px,1.3vw,15px);overflow:visible;cursor:pointer;background:linear-gradient(145deg,#fff0d5,#e7b56c);box-shadow:0 4px 0 #6b2b20,0 7px 14px #35120d66;perspective:900px;isolation:isolate}
-.door:nth-child(3n){background:linear-gradient(145deg,#d9f0dc,#80bd91)}.door:nth-child(4n){background:linear-gradient(145deg,#fff0c1,#e2a34a)}
-.door:focus-visible{outline:3px solid white;outline-offset:3px}.door:disabled{cursor:not-allowed;filter:saturate(.65)}
-.gift-image{position:absolute;inset:3px;width:calc(100% - 6px);height:calc(100% - 6px);object-fit:contain;object-position:center bottom;border-radius:9px;opacity:0;transform:scale(.72) translateY(12px);transition:opacity .3s .2s,transform .45s .2s;z-index:0;filter:drop-shadow(0 3px 3px #4b211d55)}
-.door.opened .gift-image{opacity:1;transform:scale(1) translateY(0)}
-.door-front{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #ffffff80;border-radius:inherit;color:#fff9e9;background:linear-gradient(145deg,#e75d40,#a92729);box-shadow:inset 0 1px 5px #ffffff55;transform-origin:left center;backface-visibility:hidden;transition:transform .75s cubic-bezier(.2,.75,.25,1),filter .2s}
-.door:nth-child(3n) .door-front{background:linear-gradient(145deg,#24845d,#10513e)}.door:nth-child(4n) .door-front{background:linear-gradient(145deg,#e5a83d,#a85b1d)}
-.door-front:before{content:"";position:absolute;inset:6px;border:1px solid #ffffff60;border-radius:7px;pointer-events:none}
-.door:hover:not(:disabled):not(.opened) .door-front{filter:brightness(1.12)}
-.number{font:700 clamp(1.25rem,4.5vh,2.7rem)/1 Fredoka,cursive;text-shadow:0 3px 0 #0003}
-.door-label{font-size:clamp(.45rem,1.1vh,.65rem);letter-spacing:.07em;font-weight:900;margin-top:5px;color:#ffe9c7}
-.door.opened .door-front{transform:perspective(700px) rotateY(-112deg);pointer-events:none}
-.door.opened .number{color:#ffd36a}
-.door:disabled .door-front{filter:saturate(.55) brightness(.86)}
-.door:disabled .door-label{opacity:.8}
-@media(max-width:650px){header{padding:7px 8px 7px}h1{font-size:clamp(1.55rem,4.5vh,2.4rem)}.subtitle{margin:3px auto 5px}.calendar{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr));gap:clamp(4px,1vw,8px);padding:7px}main{width:98vw}.door{border-radius:9px}.door-front:before{inset:4px}.gift-image{inset:2px;width:calc(100% - 4px);height:calc(100% - 4px)}}
-@media(max-height:620px){header{padding-top:5px;padding-bottom:5px}h1{font-size:clamp(1.45rem,4vh,2.3rem)}.subtitle{display:none}.countdown{padding:4px 10px}main{width:min(1050px,97vw)}.calendar{gap:6px;padding:7px}}
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap');
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{height:100svh;color:#fff8e9;font-family:Nunito,system-ui,sans-serif;background:radial-gradient(ellipse at 12% 0%,#ffb64d 0,transparent 34%),radial-gradient(ellipse at 92% 15%,#e95e38 0,transparent 32%),linear-gradient(145deg,#77231f,#bd4726 55%,#421c24)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:radial-gradient(#fff 1px,transparent 1.5px);background-size:38px 38px}
+header{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px clamp(12px,3vw,30px);border-bottom:1px solid #ffffff30;background:#4a171b44;backdrop-filter:blur(12px)}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}.brand-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(145deg,#ffcf70,#e85b3b);box-shadow:0 4px 0 #6c2422;font-size:23px}.eyebrow{font-size:.62rem;letter-spacing:.18em;color:#ffdfaa;font-weight:900}h1{font:700 clamp(1.25rem,3vw,2rem)/1 Fredoka;margin:3px 0 0;text-shadow:0 3px 0 #69251f}.top-right{display:flex;align-items:center;gap:10px}.counter{padding:8px 13px;border:1px solid #ffffff50;border-radius:30px;background:#461c1e88;font-size:.78rem;font-weight:900;white-space:nowrap}.counter b{color:#ffd16c}
+nav{position:relative;z-index:2;display:flex;justify-content:center;gap:8px;padding:10px 12px 8px}.tab{border:1px solid #ffffff55;border-radius:999px;padding:9px 18px;color:#fff5e4;background:#ffffff12;font:900 .78rem Nunito;cursor:pointer}.tab.active{background:#ffe1a5;color:#76251f;border-color:#ffe1a5;box-shadow:0 3px 0 #6b2923}
+main{position:relative;z-index:1;height:calc(100svh - 112px);min-height:0;width:min(1120px,96vw);margin:0 auto;padding:4px 0 12px}.view{height:100%;min-height:0;border:1px solid #ffffff45;border-radius:22px;background:linear-gradient(135deg,#ffffff20,#32141966);box-shadow:0 16px 45px #32100d66,inset 0 1px #ffffff55;backdrop-filter:blur(10px);padding:clamp(8px,1.4vw,14px);display:none}.view.active{display:flex;flex-direction:column}.view-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex:none;padding:1px 4px 10px}.view-head h2{font:700 clamp(1rem,2.4vw,1.4rem) Fredoka;margin:0}.hint{font-size:.72rem;color:#ffe5c2;text-align:right}
+.door-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:clamp(5px,1vw,11px)}
+.door{position:relative;min-width:0;min-height:0;border:0;border-radius:12px;overflow:hidden;cursor:pointer;background:linear-gradient(145deg,#fff0d5,#e5ad5c);box-shadow:0 4px 0 #64231f,0 7px 14px #35120d66;isolation:isolate}.door:nth-child(3n){background:linear-gradient(145deg,#d9f0dc,#80bd91)}.door:nth-child(4n){background:linear-gradient(145deg,#fff0c1,#e2a34a)}.door:disabled{cursor:not-allowed;filter:saturate(.55) brightness(.8)}
+.door-img{position:absolute;inset:3px;width:calc(100% - 6px);height:calc(100% - 6px);object-fit:contain;object-position:center bottom;opacity:0;transform:scale(.65) translateY(10px);transition:.45s .18s;filter:drop-shadow(0 3px 4px #47201d88)}.door.collected .door-img{opacity:1;transform:scale(1) translateY(0)}
+.door-cover{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #ffffff80;border-radius:inherit;color:white;background:linear-gradient(145deg,#e75d40,#a92729);box-shadow:inset 0 1px 5px #ffffff55;transform-origin:left center;backface-visibility:hidden;transition:transform .72s cubic-bezier(.2,.75,.25,1)}.door:nth-child(3n) .door-cover{background:linear-gradient(145deg,#24845d,#10513e)}.door:nth-child(4n) .door-cover{background:linear-gradient(145deg,#e5a83d,#a85b1d)}.door-cover:before{content:"";position:absolute;inset:6px;border:1px solid #ffffff65;border-radius:7px}.door:hover:not(:disabled):not(.collected) .door-cover{filter:brightness(1.15)}
+.day{font:700 clamp(1.2rem,4vh,2.6rem) Fredoka;text-shadow:0 3px 0 #0003}.door-caption{font-size:clamp(.42rem,1vh,.62rem);font-weight:900;letter-spacing:.08em;margin-top:4px}.door.collected .door-cover{transform:perspective(700px) rotateY(-112deg);pointer-events:none}
+.album-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:clamp(5px,1vw,11px)}
+.card{position:relative;min-width:0;min-height:0;border-radius:12px;padding:5px;background:linear-gradient(145deg,#f8d88f,#b87b3e);box-shadow:0 4px 0 #57231e,0 8px 15px #28101566;display:flex;flex-direction:column;align-items:center;justify-content:space-between;overflow:hidden;color:#54251e;text-align:center}.card.rare{background:linear-gradient(145deg,#c6e8ff,#5795c5)}.card.epic{background:linear-gradient(145deg,#e8c6ff,#9160bd)}.card.legendary{background:linear-gradient(145deg,#fff0a6,#e5a22d)}.card img{width:100%;height:72%;object-fit:contain;filter:drop-shadow(0 2px 3px #4a251c66)}.card-name{font:700 clamp(.55rem,1.35vw,.85rem)/1 Fredoka;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rarity{font-size:clamp(.4rem,.8vw,.55rem);font-weight:900;letter-spacing:.08em;text-transform:uppercase}.empty{border:1px dashed #ffffff55;border-radius:12px;background:#ffffff0a;display:grid;place-items:center;color:#ffdfbd;font-size:clamp(.55rem,1.2vw,.8rem);font-weight:900}.empty span{opacity:.65}
+footer{flex:none;text-align:center;padding:7px 8px 0;color:#ffe5c2;font-size:.65rem}
+@media(max-width:650px){header{padding:8px 10px}.brand-mark{width:34px;height:34px;font-size:19px}.eyebrow{font-size:.5rem}h1{font-size:1.2rem}.counter{padding:7px 9px;font-size:.68rem}nav{padding:7px 8px}.tab{padding:8px 14px}main{height:calc(100svh - 102px);width:98vw}.view{padding:7px;border-radius:15px}.door-grid,.album-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr));gap:5px}.door,.card,.empty{border-radius:8px}.view-head{padding-bottom:7px}.hint{font-size:.62rem}}
+@media(max-height:560px){header{padding:5px 12px}.brand-mark{width:30px;height:30px}.subtitle{display:none}nav{padding:4px}main{height:calc(100svh - 85px)}footer{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
-</style></head>
-<body>
-<header><div class="eyebrow">A LITTLE BIT OF CHRISTMAS MAGIC</div><h1>Christmas Calendar</h1><p class="subtitle">24 little doors. A new surprise every day from 1 December.</p><div class="countdown" id="status">Come back each day to open the next door</div></header>
-<main><section class="calendar" id="calendar" aria-label="24-day Christmas advent calendar"></section></main>
+</style></head><body>
+<header><div class="brand"><div class="brand-mark">✦</div><div><div class="eyebrow">ROHAN'S CHRISTMAS COLLECTION</div><h1>Festive Card Collector</h1></div></div><div class="top-right"><div class="counter"><b id="count">0</b> / 24 CARDS</div></div></header>
+<nav><button class="tab active" data-view="doors">Advent Packs</button><button class="tab" data-view="album">My Collection</button></nav>
+<main>
+<section class="view active" id="doors"><div class="view-head"><h2>Open a Christmas pack</h2><div class="hint" id="status">One new pack unlocks each day in December</div></div><div class="door-grid" id="doorGrid"></div></section>
+<section class="view" id="album"><div class="view-head"><h2>My card album</h2><div class="hint" id="albumStatus">Your festive cards appear here</div></div><div class="album-grid" id="albumGrid"></div></section>
+</main><footer>Collect all 24 festive characters · Your collection saves on this device</footer>
 <script>
+const TEST_MODE=false;
 const images=["01-santa_nobg.png","Edit this image using this instruction_ “NO BACKGROUND” (1)_nobg.png","Edit this image using this instruction_ “NO BACKGROUND” (2)_nobg.png","Edit this image using this instruction_ “NO BACKGROUND” (3)_nobg.png","Edit this image using this instruction_ “NO BACKGROUND” (4)_nobg.png","Edit this image using this instruction_ “NO BACKGROUND” (5)_nobg.png","Edit this image using this instruction_ “NO BACKGROUND” (6)_nobg.png","Edit this image using this instruction_ “NO BACKGROUND”_nobg.png","Edit this image using this instruction_ “NO BACROUNd”_nobg.png","Edit this image using this instruction_ “full image no background” (1)_nobg.png","Edit this image using this instruction_ “full image no background”_nobg.png","Edit this image using this instruction_ “no background”_nobg.png","Edit this image using this instruction_ “no hands no bg”_nobg.png","Generate a new image matching the description below._Use the attached image only as inspiration for the artistic style._Invent a fresh composition rather than reproducing the reference's layout._Choose an imaginative pose, viewpoint, fr (1)_nobg.png","Generate a new image matching the description below._Use the attached image only as inspiration for the artistic style._Invent a fresh composition rather than reproducing the reference's layout._Choose an imaginative pose, viewpoint, fr (2)_nobg.png","Generate a new image matching the description below._Use the attached image only as inspiration for the artistic style._Invent a fresh composition rather than reproducing the reference's layout._Choose an imaginative pose, viewpoint, framin_nobg.png","create a cute baulble in this excact style no hands no bg_nobg.png"];
-const calendar=document.getElementById('calendar');
-const status=document.getElementById('status');
-const today=new Date();const unlocked=today.getMonth()===11?today.getDate():0;
-const STORAGE_KEY='rohansweb-christmas-calendar-opened-v1';
-function readOpened(){try{const a=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return new Set(Array.isArray(a)?a.filter(n=>Number.isInteger(n)&&n>=1&&n<=24):[])}catch{return new Set()}}
-const opened=readOpened();
-function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify([...opened].sort((a,b)=>a-b)))}catch{}}
-function imagePath(file){return './'+encodeURIComponent(file).replace(/%2F/gi,'/')}
-function makeDoor(day){
- const button=document.createElement('button');
- button.type='button';button.className='door';button.disabled=day>unlocked;
- button.setAttribute('aria-label',(day>unlocked?'Locked':'Open')+' day '+day);
- const img=document.createElement('img');img.className='gift-image';img.alt='Christmas character for day '+day;img.loading='lazy';img.src=imagePath(images[(day-1)%images.length]);
- const front=document.createElement('span');front.className='door-front';
- const number=document.createElement('span');number.className='number';number.textContent=String(day).padStart(2,'0');
- const label=document.createElement('span');label.className='door-label';label.textContent=day>unlocked?'LOCKED':'OPEN GIFT';
- front.append(number,label);button.append(img,front);
- if(opened.has(day)){button.classList.add('opened');label.textContent='OPENED';button.setAttribute('aria-label','Day '+day+' opened')}
- if(day<=unlocked)button.addEventListener('click',()=>{if(button.classList.contains('opened'))return;opened.add(day);save();button.classList.add('opened');label.textContent='OPENED';button.setAttribute('aria-label','Day '+day+' opened')});
- calendar.append(button);
-}
-for(let day=1;day<=24;day++)makeDoor(day);
-if(true && unlocked===0)status.textContent='The first door unlocks on 1 December';
-else if(!true && unlocked<24)status.textContent='Day '+unlocked+' is ready to open';
+const names=["Santa","Snowy Friend","Jolly Elf","Candy Cane Pal","Reindeer","Gingerbread Buddy","Winter Sprite","Present Pal","Festive Penguin","Christmas Helper","Cosy Caroler","Bauble Buddy","Little Toymaker","North Pole Friend","Merry Mouse","Snowflake Star","Christmas Bauble","Santa's Helper","Frosty Friend","Gift Giver","Jingle Bell","Reindeer Pal","Holiday Hero","Christmas Champion"];
+const rarities=["legendary","common","rare","common","epic","common","rare","common","epic","common","rare","common","epic","rare","common","legendary","rare","common","epic","common","rare","common","epic","legendary"];
+const key="rohansweb-xmas-card-collection-v2";
+let collected=new Set();try{const saved=JSON.parse(localStorage.getItem(key)||"[]");if(Array.isArray(saved))collected=new Set(saved.filter(n=>Number.isInteger(n)&&n>=1&&n<=24))}catch{}
+const today=new Date();const unlocked=TEST_MODE?24:(today.getMonth()===11?Math.min(24,today.getDate()):0);
+const path=name=>"./"+encodeURIComponent(name);
+const count=document.getElementById("count"),doorGrid=document.getElementById("doorGrid"),albumGrid=document.getElementById("albumGrid");
+function persist(){try{localStorage.setItem(key,JSON.stringify([...collected].sort((a,b)=>a-b)))}catch{}}
+function updateCount(){count.textContent=collected.size;document.getElementById("albumStatus").textContent=collected.size+" collected · "+(24-collected.size)+" still to find"}
+function showAlbum(){albumGrid.innerHTML="";for(let day=1;day<=24;day++){if(collected.has(day)){const card=document.createElement("article");card.className="card "+rarities[day-1];const img=document.createElement("img");img.src=path(images[(day-1)%images.length]);img.alt=names[day-1];const name=document.createElement("div");name.className="card-name";name.textContent=names[day-1];const rarity=document.createElement("div");rarity.className="rarity";rarity.textContent=rarities[day-1];card.append(img,name,rarity);albumGrid.append(card)}else{const empty=document.createElement("div");empty.className="empty";empty.innerHTML="<span>✦<br>DAY "+String(day).padStart(2,"0")+"<br>?</span>";albumGrid.append(empty)}}updateCount()}
+function makeDoor(day){const btn=document.createElement("button");btn.className="door";btn.type="button";btn.disabled=day>unlocked;const img=document.createElement("img");img.className="door-img";img.src=path(images[(day-1)%images.length]);img.alt=names[day-1];const cover=document.createElement("span");cover.className="door-cover";const n=document.createElement("span");n.className="day";n.textContent=String(day).padStart(2,"0");const cap=document.createElement("span");cap.className="door-caption";cap.textContent=day>unlocked?"LOCKED":collected.has(day)?"COLLECTED":"OPEN PACK";cover.append(n,cap);btn.append(img,cover);if(collected.has(day))btn.classList.add("collected");btn.setAttribute("aria-label","Day "+day+(day>unlocked?" locked":collected.has(day)?" collected":" open card pack"));btn.addEventListener("click",()=>{if(day>unlocked||collected.has(day))return;collected.add(day);persist();btn.classList.add("collected");cap.textContent="COLLECTED";btn.setAttribute("aria-label","Day "+day+" collected "+names[day-1]);updateCount()});doorGrid.append(btn)}
+for(let d=1;d<=24;d++)makeDoor(d);showAlbum();
+document.querySelectorAll(".tab").forEach(tab=>tab.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t===tab));document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===tab.dataset.view))}));
+if(!TEST_MODE&&unlocked===0)document.getElementById("status").textContent="First pack unlocks on 1 December";
+else if(!TEST_MODE)document.getElementById("status").textContent="Day "+unlocked+" available · "+collected.size+" collected";
 </script></body></html>
