@@ -16,11 +16,50 @@ main{max-width:1250px;margin:auto;padding:28px 24px 80px}.section-head{display:f
 footer{background:#102b46;color:#dce9e9;text-align:center;padding:27px;font-size:12px;font-weight:800}
 @media(max-width:900px){.activities{grid-template-columns:repeat(2,1fr)}.character-line{height:29%;bottom:4%}.hero{min-height:650px;background-position:center}.hero-copy{max-width:62%}}
 @media(max-width:600px){.topbar{height:auto;min-height:68px;padding:10px 15px}.brand{font-size:17px}.brand img{width:38px;height:38px}.nav a{display:none}.nav .music{padding:10px 12px}.hero{padding:28px 14px 0;min-height:760px;background-position:54% center}.hero:before{background:linear-gradient(180deg,#09263cae 0%,#09263c50 56%,transparent 100%)}.hero-copy{max-width:100%;padding:16px 17px 18px}.hero h1{font-size:49px}.hero p{font-size:14px;max-width:420px}.character-line{height:23%;bottom:5%}.character-line img{width:clamp(66px,17vw,104px)}.countdown{gap:6px}.unit{min-width:0;flex:1;padding:9px 6px}.unit b{font-size:25px}main{padding:15px 15px 55px}.activities{grid-template-columns:1fr 1fr;gap:11px}.activity{padding:13px;min-height:300px}.activity .art{height:125px}.activity img{height:118px}.activity h3{font-size:20px}.activity p{font-size:12px}.section-head{align-items:start;flex-direction:column}.welcome{padding:20px;gap:12px}.welcome img{width:76px;height:76px}.welcome h3{font-size:22px}}
+
+.village{position:relative;width:100%;aspect-ratio:1672/941;min-height:470px;overflow:hidden;background:#092747;isolation:isolate}
+.village-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.village-shade{position:absolute;inset:0;background:linear-gradient(115deg,#09243b9c 0%,transparent 42%,transparent 100%);pointer-events:none}
+.village-heading{position:absolute;z-index:5;left:clamp(16px,3vw,48px);top:clamp(16px,3vw,42px);max-width:390px;padding:17px 20px;border:1px solid #ffffff66;border-radius:20px;background:#092b43b8;color:#fff;backdrop-filter:blur(8px);box-shadow:0 12px 35px #071a3540}
+.village-heading h1{font:700 clamp(27px,3.3vw,48px)/1 Fredoka;margin:10px 0 7px}.village-heading p{font-size:clamp(11px,1.15vw,15px);font-weight:800;line-height:1.4;margin:0;color:#f3f8ff}
+.village-hotspots{position:absolute;inset:0;z-index:6}.spot{position:absolute;transform:translate(-50%,-50%);width:clamp(36px,4vw,58px);height:clamp(36px,4vw,58px);border:3px solid #fff;border-radius:50%;background:#e83d36;color:#fff;box-shadow:0 0 0 7px #ffdc7770,0 5px 18px #10243d88;display:grid;place-items:center;animation:spotPulse 2s ease-in-out infinite}
+.spot:before{content:"+";font:700 25px Fredoka}.spot span{position:absolute;top:calc(100% + 9px);left:50%;transform:translateX(-50%);white-space:nowrap;padding:6px 10px;border-radius:20px;background:#fff8e7;color:#603b20;font-size:11px;font-weight:1000;box-shadow:0 3px 12px #152d3a55}
+.workshop{left:16%;top:37%}.games{left:87%;top:38%}.castle{left:61%;top:13%}.cottages{left:36%;top:23%}.tree-spot{left:50%;top:47%;background:#218452}
+@keyframes spotPulse{50%{box-shadow:0 0 0 12px #ffdc7730,0 5px 18px #10243d88;scale:1.07}}
+.walk-layer{position:absolute;inset:0;width:100%;height:100%;z-index:4;overflow:visible;pointer-events:none}.walk-layer path{fill:none;stroke:transparent;stroke-width:2}
+.walk-layer image{filter:drop-shadow(0 6px 4px #10253b88);overflow:visible}
+.snowfall{position:absolute;inset:-30px;z-index:7;pointer-events:none;opacity:.8;background-image:radial-gradient(2px 2px at 20px 30px,#fff 98%,transparent),radial-gradient(3px 3px at 90px 140px,#fff 98%,transparent),radial-gradient(1.5px 1.5px at 170px 80px,#fff 98%,transparent),radial-gradient(2px 2px at 230px 190px,#fff 98%,transparent);background-size:260px 220px;animation:snowfallMove 9s linear infinite}
+@keyframes snowfallMove{to{background-position:0 440px}}
+.place-card{position:absolute;z-index:10;right:clamp(12px,3vw,42px);bottom:clamp(12px,3vw,42px);width:min(340px,calc(100% - 24px));padding:22px;border-radius:20px;background:#fff9ec;color:#18374b;box-shadow:0 15px 45px #081e36a8;border:2px solid #f3cf78}
+.place-card[hidden]{display:none}.place-kicker{font-size:10px;letter-spacing:1.6px;font-weight:1000;color:#a66b19}.place-card h2{font:700 27px Fredoka;margin:7px 0}.place-card p{font-size:13px;line-height:1.5;font-weight:700;color:#60727a}.place-card a{display:inline-block;margin-top:6px;padding:10px 15px;border-radius:22px;background:#176348;color:#fff;font-size:12px;font-weight:1000}.place-close{position:absolute;right:12px;top:8px;border:0;background:transparent;font-size:27px;color:#52636b}
+.village-tip{position:absolute;z-index:8;left:50%;bottom:15px;transform:translateX(-50%);padding:8px 15px;border-radius:30px;background:#08263bc9;color:white;font-size:11px;font-weight:900;white-space:nowrap}
+@media(max-width:650px){.village{min-height:560px;aspect-ratio:auto}.village-art{object-fit:cover;object-position:center}.village-heading{top:12px;left:12px;right:12px;max-width:none;padding:12px 15px}.village-heading h1{font-size:28px;margin:6px 0}.village-heading p{font-size:11px;max-width:300px}.spot{width:35px;height:35px}.spot:before{font-size:19px}.spot span{font-size:9px;padding:5px 7px}.workshop{left:15%;top:43%}.games{left:87%;top:43%}.castle{left:61%;top:17%}.cottages{left:36%;top:30%}.tree-spot{left:50%;top:54%}.village-tip{bottom:8px;font-size:9px}.place-card{right:10px;bottom:42px}}
+@media(prefers-reduced-motion:reduce){.snowfall,.spot{animation:none}}
 </style></head>
 <body>
 <header class="topbar"><a class="brand" href="./"><img src="11-santa-claus.png" alt=""><span>Christmas Wonderland</span></a><nav class="nav"><a href="#activities">Explore</a><a href="calendar.html">Advent calendar</a><button class="music" id="musicBtn">♫ <span>Play music</span></button></nav></header>
-<section class="hero"><div class="hero-copy"><span class="eyebrow">WELCOME TO THE NORTH POLE</span><h1>Christmas<br>Wonderland</h1><p>Step into a snowy world full of festive surprises. Meet the North Pole characters, get creative in the elf workshop and join the Christmas countdown.</p><a class="primary" href="#activities">Explore the North Pole ↓</a><div class="countdown" aria-label="Countdown to Christmas"><div class="unit"><b id="days">00</b><span>DAYS</span></div><div class="unit"><b id="hours">00</b><span>HOURS</span></div><div class="unit"><b id="mins">00</b><span>MINUTES</span></div><div class="unit"><b id="secs">00</b><span>SECONDS</span></div></div></div>
-<div class="character-line" aria-label="North Pole friends"><img src="01-reindeer.png" alt="Reindeer"><img src="02-christmas-elf.png" alt="Christmas elf"><img src="03-polar-bear.png" alt="Polar bear"><img src="14-christmas-penguin.png" alt="Penguin"></div></section>
+<section class="village" aria-label="Interactive North Pole village">
+  <img class="village-art" src="Whimsical North Pole Christmas Village.png" alt="A snowy North Pole village with Santa's Workshop, Games Village, a Christmas tree and a castle">
+  <div class="village-shade"></div>
+  <div class="village-heading"><span class="eyebrow">THE NORTH POLE IS OPEN</span><h1>Explore the Village</h1><p>Tap a building to visit it. Watch the friends wander along the snowy paths!</p></div>
+  <div class="village-hotspots">
+    <button class="spot workshop" data-place="workshop" aria-label="Explore Santa's Workshop"><span>Explore</span></button>
+    <button class="spot games" data-place="games" aria-label="Explore Games Village"><span>Explore</span></button>
+    <button class="spot castle" data-place="castle" aria-label="Explore the Ice Castle"><span>Explore</span></button>
+    <button class="spot cottages" data-place="cottages" aria-label="Explore the Christmas Cottages"><span>Explore</span></button>
+    <button class="spot tree-spot" data-place="tree" aria-label="Visit the Christmas tree"><span>Explore</span></button>
+  </div>
+  <svg class="walk-layer" viewBox="0 0 1672 941" preserveAspectRatio="none" aria-hidden="true">
+    <path id="villageRoute" d="M -35 760 C 150 720 330 735 480 680 S 700 640 680 570 C 655 500 730 470 835 475 S 1010 465 1000 390 C 985 320 1090 300 1190 330 S 1450 405 1705 545"/>
+    <image id="walker1" href="01-reindeer.png" width="86" height="100"/>
+    <image id="walker2" href="02-christmas-elf.png" width="78" height="94"/>
+    <image id="walker3" href="14-christmas-penguin.png" width="72" height="88"/>
+    <image id="walker4" href="07-christmas-rabbit.png" width="70" height="86"/>
+  </svg>
+  <div class="snowfall" aria-hidden="true"></div>
+  <div class="place-card" id="placeCard" hidden><button class="place-close" id="placeClose" aria-label="Close">×</button><div class="place-kicker">NORTH POLE LOCATION</div><h2 id="placeTitle"></h2><p id="placeDescription"></p><a id="placeLink" href="#">Visit this place →</a></div>
+  <div class="village-tip">✦ Tap a glowing marker to explore the village</div>
+</section>
 <main id="activities"><div class="section-head"><div><h2>Explore the North Pole</h2><p>Choose somewhere to visit. Every activity opens as its own full page.</p></div><span class="section-tag">NORTH POLE ACTIVITIES</span></div>
 <div class="activities">
 <a class="activity calendar" href="calendar.html"><div class="art"><img src="15-christmas-present.png" alt="Christmas present"></div><small>DAILY SURPRISES</small><h3>Advent Calendar</h3><p>Open a festive door and collect the Christmas surprises.</p><span class="go">OPEN CALENDAR →</span></a>
@@ -34,6 +73,43 @@ footer{background:#102b46;color:#dce9e9;text-align:center;padding:27px;font-size
 </main><footer>Christmas Wonderland · North Pole · 2026</footer>
 <audio id="music" src="https://projects.rohansweb.co.uk/viacheslavstarostin-we-wish-you-a-merry-christmas-444573.mp3" loop preload="auto"></audio>
 <script>
+
+const route=document.getElementById('villageRoute');
+if(route){
+ const total=route.getTotalLength();
+ const walkers=[['walker1',0,86,100],['walker2',.24,78,94],['walker3',.51,72,88],['walker4',.76,70,86]];
+ const startTime=performance.now();
+ function moveFriends(now){
+  const elapsed=(now-startTime)/1000;
+  walkers.forEach(([id,offset,w,h],i)=>{
+   const node=document.getElementById(id),distance=((elapsed*(i===0?42:i===1?34:i===2?29:37)+offset*total)%total);
+   const p=route.getPointAtLength(distance),ahead=route.getPointAtLength(Math.min(total,distance+3));
+   const direction=ahead.x>=p.x?1:-1,scale=direction===1?1:-1;
+   const bob=Math.sin(elapsed*7+i*1.7)*2.5;
+   node.setAttribute('x',p.x-w/2);node.setAttribute('y',p.y-h+bob);
+   node.setAttribute('transform',`translate(${p.x} 0) scale(${scale} 1) translate(${-p.x} 0)`);
+  });
+  requestAnimationFrame(moveFriends);
+ }
+ requestAnimationFrame(moveFriends);
+}
+const places={
+ workshop:{title:"Santa’s Workshop",description:"Step inside the busy workshop where the elves make toys and prepare Christmas surprises.",href:"tree.html",label:"Enter the Elf Workshop"},
+ games:{title:"Games Village",description:"Ready for a festive challenge? Head to the reindeer training track and play Reindeer Dash.",href:"race.html",label:"Play Reindeer Dash"},
+ castle:{title:"The Ice Castle",description:"The castle is glowing above the village. Visit the Advent Calendar to discover a new surprise each day.",href:"calendar.html",label:"Open the Advent Calendar"},
+ cottages:{title:"Christmas Cottages",description:"Cosy little homes tucked into the snow. Visit the Christmas art studio and make a festive creation.",href:"quick-draw.html",label:"Visit the Art Studio"},
+ tree:{title:"The Village Christmas Tree",description:"The heart of the village is shining bright. Add your own decorations and lights to the tree.",href:"tree.html",label:"Decorate the Tree"}
+};
+const card=document.getElementById('placeCard');
+document.querySelectorAll('.spot').forEach(button=>button.addEventListener('click',()=>{
+ const place=places[button.dataset.place];if(!place)return;
+ document.getElementById('placeTitle').textContent=place.title;
+ document.getElementById('placeDescription').textContent=place.description;
+ const link=document.getElementById('placeLink');link.href=place.href;link.textContent=place.label+' →';
+ card.hidden=false;
+}));
+document.getElementById('placeClose').addEventListener('click',()=>card.hidden=true);
+
 const audio=document.getElementById('music'),btn=document.getElementById('musicBtn');let started=false;
 async function play(){try{await audio.play();started=true;btn.classList.add('playing');btn.innerHTML='♫ <span>Music playing</span>'}catch(e){btn.innerHTML='♫ <span>Tap for music</span>'}}
 btn.addEventListener('click',()=>{if(audio.paused)play();else{audio.pause();btn.classList.remove('playing');btn.innerHTML='♫ <span>Play music</span>'}});
