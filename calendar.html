@@ -21,7 +21,7 @@ footer{flex:none;text-align:center;padding:7px 8px 0;color:#ffe5c2;font-size:.65
 @media(max-width:650px){.music-toggle{padding:7px 9px;font-size:.62rem}header{padding:8px 10px}.brand-mark{width:34px;height:34px;font-size:19px}.eyebrow{font-size:.5rem}h1{font-size:1.2rem}.counter{padding:7px 9px;font-size:.68rem}nav{padding:7px 8px}.tab{padding:8px 14px}main{height:calc(100svh - 102px);width:98vw}.view{padding:7px;border-radius:15px}.door-grid,.album-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr));gap:5px}.door,.card,.empty{border-radius:8px}.view-head{padding-bottom:7px}.hint{font-size:.62rem}}
 @media(max-height:560px){header{padding:5px 12px}.brand-mark{width:30px;height:30px}.subtitle{display:none}nav{padding:4px}main{height:calc(100svh - 85px)}footer{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
-</style></head><body>
+html,body{min-height:100%;width:100%}body{min-height:100svh}\n</style></head><body>
 <header><div class="brand"><div class="brand-mark">✦</div><div><div class="eyebrow">ROHAN'S CHRISTMAS COLLECTION</div><h1>Festive Card Collector</h1></div></div><div class="top-right"><button class="music-toggle" id="musicToggle" type="button" aria-pressed="false">♫ Play music</button><div class="counter"><b id="count">0</b> / 24 CARDS</div></div></header>
 <nav><button class="tab active" data-view="doors">Advent Packs</button><button class="tab" data-view="album">My Collection</button></nav>
 <main>
@@ -50,4 +50,27 @@ for(let d=1;d<=24;d++)makeDoor(d);showAlbum();
 document.querySelectorAll(".tab").forEach(tab=>tab.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t===tab));document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===tab.dataset.view))}));
 if(!TEST_MODE&&unlocked===0)document.getElementById("status").textContent="First pack unlocks on 1 December";
 else if(!TEST_MODE)document.getElementById("status").textContent="Day "+unlocked+" available · "+collected.size+" collected";
+</script><style>
+#xmas-screen-tools{position:fixed;z-index:99999;right:14px;bottom:14px;display:flex;gap:8px;align-items:center}
+#xmas-screen-tools button{border:1px solid #fff8;border-radius:24px;padding:11px 15px;background:#102d43eF;color:#fff;font:900 12px Nunito,Arial,sans-serif;box-shadow:0 5px 18px #061a2c66;cursor:pointer;backdrop-filter:blur(8px)}
+#xmas-screen-tools button:hover{background:#a83232}
+html.xmas-fullscreen,html.xmas-fullscreen body{width:100%;height:100%;min-height:100%;margin:0}
+html.xmas-fullscreen body{overflow:auto}
+:fullscreen{background:#092b3b}
+@media(max-width:600px){#xmas-screen-tools{right:8px;bottom:8px}#xmas-screen-tools button{padding:10px 12px;font-size:11px}}
+</style>
+<div id="xmas-screen-tools"><button id="xmas-music" type="button">▶ Play Christmas music</button><button id="xmas-fullscreen" type="button">⛶ Full screen</button></div>
+<audio id="xmas-background-music" src="https://projects.rohansweb.co.uk/viacheslavstarostin-we-wish-you-a-merry-christmas-444573.mp3" loop preload="auto" autoplay></audio>
+<script>
+(()=>{const audio=document.getElementById('xmas-background-music'),music=document.getElementById('xmas-music'),full=document.getElementById('xmas-fullscreen');let started=false;
+async function startMusic(){try{await audio.play();started=true;music.textContent='♫ Music on'}catch(e){music.textContent='▶ Tap to play music'}}
+music.addEventListener('play',()=>{music.textContent='♫ Music on'});music.addEventListener('pause',()=>{music.textContent='▶ Play Christmas music'});
+music.addEventListener('error',()=>{music.textContent='Music unavailable'});
+music.addEventListener('ended',()=>{audio.currentTime=0;startMusic()});
+music.addEventListener('click',()=>{if(audio.paused)startMusic();else audio.pause()});
+startMusic();
+document.addEventListener('pointerdown',()=>{if(!started&&audio.paused)startMusic()},{once:true});
+full.addEventListener('click',async()=>{try{if(!document.fullscreenElement){await document.documentElement.requestFullscreen();full.textContent='⤢ Exit full screen'}else{await document.exitFullscreen();full.textContent='⛶ Full screen'}}catch(e){full.textContent='Full screen unavailable'}});
+document.addEventListener('fullscreenchange',()=>{full.textContent=document.fullscreenElement?'⤢ Exit full screen':'⛶ Full screen'});
+})();
 </script></body></html>
